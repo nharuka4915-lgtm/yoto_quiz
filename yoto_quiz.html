@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用途地域に関する都市計画に定める事項 - 暗記クイズ</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            table-layout: fixed; /* 列幅を固定 */
+        }
+        th, td {
+            border: 1px solid #e1e8ed;
+            padding: 14px 15px;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        /* 列ごとの幅調整（3列分） */
+        th:nth-child(1), td:nth-child(1) { width: 30%; }
+        th:nth-child(2), td:nth-child(2) { width: 35%; }
+        th:nth-child(3), td:nth-child(3) { width: 35%; }
+
+        /* 隠し要素（赤字部分）のスタイル：幅を固定してすべて同じ長さに統一 */
+        .hidden-item {
+            background-color: #cbd5e1;
+            color: #cbd5e1;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 4px;
+            user-select: none;
+            display: inline-block;
+            width: 140px; /* グレーの長さを統一 */
+            text-align: center;
+            letter-spacing: 2px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .hidden-item.revealed {
+            background-color: #fef3c7;
+            color: #dc2626; /* 正解時の赤字 */
+            font-weight: bold;
+            letter-spacing: normal;
+            text-align: left;
+            width: auto; /* 開いたときは文字の長さに合わせる */
+            padding: 2px 4px;
+        }
+        .hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #e2e8f0;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #475569;
+        }
+        button:hover {
+            background-color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>用途地域に関する都市計画に定める事項</h1>
+    <div class="hint">💡 黒字部分は常時表示され、グレーのブロックをタップすると表示・非表示が切り替わります。</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>内容 (B)</th>
+                <th>対象 (C)</th>
+                <th>定める事項 (D)</th>
+            </tr>
+        </thead>
+        <tbody id="quiz-table">
+            <!-- JavaScriptで動的に生成します -->
+        </tbody>
+    </table>
+
+    <button onclick="resetAll()">すべてもう一度隠した状態にする</button>
+
+<script>
+const quizData = [
+    { b: "必ず定める", c_hidden: "", c_fixed: "すべての用途地域", d: "容積率" },
+    { b: "必ず定める", c_hidden: "商業地域", c_fixed: "以外", d: "建蔽率" },
+    { b: "必ず定める", c_hidden: "1低2低田園", c_fixed: "のみ", d: "高さの限度" },
+    { b: "必要に応じて定める", c_hidden: "", c_fixed: "すべての用途地域", d: "敷地面積の最低限度" },
+    { b: "必要に応じて定める", c_hidden: "1低2低田園", c_fixed: "のみ", d: "外壁の後退距離の限度" }
+];
+
+const tbody = document.getElementById('quiz-table');
+
+function renderTable() {
+    tbody.innerHTML = '';
+    quizData.forEach((row) => {
+        const tr = document.createElement('tr');
+        
+        // B列
+        const tdB = document.createElement('td');
+        tdB.textContent = row.b;
+        tr.appendChild(tdB);
+
+        // C列
+        const tdC = document.createElement('td');
+        if (row.c_hidden) {
+            tdC.innerHTML = `<span class="hidden-item" onclick="toggleReveal(this)">${row.c_hidden}</span>${row.c_fixed}`;
+        } else {
+            tdC.textContent = row.c_fixed;
+        }
+        tr.appendChild(tdC);
+
+        // D列
+        const tdD = document.createElement('td');
+        tdD.innerHTML = `<span class="hidden-item" onclick="toggleReveal(this)">${row.d}</span>`;
+        tr.appendChild(tdD);
+
+        tbody.appendChild(tr);
+    });
+}
+
+function toggleReveal(element) {
+    element.classList.toggle('revealed');
+}
+
+function resetAll() {
+    document.querySelectorAll('.hidden-item').forEach(item => {
+        item.classList.remove('revealed');
+    });
+}
+
+// 初期描画
+renderTable();
+</script>
+
+</body>
+</html>
