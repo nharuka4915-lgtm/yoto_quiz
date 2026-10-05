@@ -11,64 +11,60 @@
             color: #333;
             max-width: 900px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 10px;
         }
         h1 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #2c3e50;
             border-bottom: 2px solid #3498db;
-            padding-bottom: 8px;
-            margin-bottom: 15px;
-        }
-        /* スマホで横スクロールできるようにする枠 */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            margin-bottom: 15px;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 500px; /* スマホで縮みすぎないように最低幅を確保 */
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            table-layout: fixed; /* スマホの幅にしっかり収める */
         }
         th, td {
             border: 1px solid #e1e8ed;
-            padding: 12px 14px;
+            padding: 10px 8px;
             text-align: left;
             vertical-align: middle;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            word-break: auto-phrase; /* 綺麗な位置で改行させる */
+            overflow-wrap: break-word;
         }
         th {
             background-color: #3498db;
             color: white;
             font-weight: 600;
-            white-space: nowrap;
         }
         tr:nth-child(even) {
             background-color: #f8fafc;
         }
-        /* 列ごとの幅調整（3列分） */
-        th:nth-child(1), td:nth-child(1) { width: 28%; }
-        th:nth-child(2), td:nth-child(2) { width: 36%; }
-        th:nth-child(3), td:nth-child(3) { width: 36%; }
+        /* スマホの幅に合わせて3列の比率を調整（合計100%） */
+        th:nth-child(1), td:nth-child(1) { width: 27%; }
+        th:nth-child(2), td:nth-child(2) { width: 38%; }
+        th:nth-child(3), td:nth-child(3) { width: 35%; }
 
         /* 隠し要素（赤字部分）のスタイル */
         .hidden-item {
             background-color: #cbd5e1;
             color: #cbd5e1;
             cursor: pointer;
-            padding: 6px 10px;
+            padding: 4px 6px;
             border-radius: 4px;
             user-select: none;
             display: inline-block;
-            width: 120px;
+            max-width: 100%;
             text-align: center;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             transition: background-color 0.2s, color 0.2s;
+            box-sizing: border-box;
         }
         .hidden-item.revealed {
             background-color: #fef3c7;
@@ -76,17 +72,16 @@
             font-weight: bold;
             letter-spacing: normal;
             text-align: left;
-            width: auto;
             padding: 2px 4px;
         }
         .hint {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #64748b;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             line-height: 1.4;
         }
         button {
-            margin-top: 10px;
+            margin-top: 15px;
             background-color: #e2e8f0;
             border: none;
             padding: 10px 16px;
@@ -94,6 +89,8 @@
             cursor: pointer;
             font-weight: bold;
             color: #475569;
+            width: 100%;
+            font-size: 0.9rem;
         }
         button:hover {
             background-color: #cbd5e1;
@@ -103,22 +100,20 @@
 <body>
 
     <h1>用途地域に関する都市計画に定める事項</h1>
-    <div class="hint">💡 黒字部分は常時表示され、グレーのブロックをタップすると表示・非表示が切り替わります。（横スクロールできます）</div>
+    <div class="hint">💡 黒字部分は常時表示され、グレーのブロックをタップすると表示・非表示が切り替わります。</div>
 
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>内容 (B)</th>
-                    <th>対象 (C)</th>
-                    <th>定める事項 (D)</th>
-                </tr>
-            </thead>
-            <tbody id="quiz-table">
-                <!-- JavaScriptで動的に生成します -->
-            </tbody>
-        </table>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>内容</th>
+                <th>対象</th>
+                <th>定める事項</th>
+            </tr>
+        </thead>
+        <tbody id="quiz-table">
+            <!-- JavaScriptで動的に生成します -->
+        </tbody>
+    </table>
 
     <button onclick="resetAll()">すべてもう一度隠した状態にする</button>
 
